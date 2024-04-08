@@ -12,13 +12,16 @@ def main_menu():
     print("D. View Financial Summary")
     print("E. Settings")
     print("F. Exit")
+    print("G. View Budgets")
+    print("H. View Expenses")
+    print("I. View Saving Goals")
 
 def budget_planner():
     print("\nBudget Planner")
-    category = input("Enter category name (e.g, groceries): ")
-    if not category:
-        print("Category already exists. Do you want to update the budget? (Y/N): ")
-        choice = input().strip().upper()
+    category = input("Enter category name (e.g., groceries): ").strip()
+    if category in budgets:
+        print("A budget already exists for this category.")
+        choice = input("Do you want to update the budget? (Y/N): ").strip().upper()
         if choice != 'Y':
             return
     amount = input("Enter budget amount: ")
@@ -31,14 +34,14 @@ def budget_planner():
     print("Budget set successfully.")
 
 def expense_tracker():
-    print ("\nExpense Tracker")
+    print("\nExpense Tracker")
     if not budgets:
         print("Please set a budget first.")
         return
     print("Categories:")
     for category in budgets.keys():
         print(category)
-    category = input("Enter expense category: ")
+    category = input("Enter expense category: ").strip()
     if category not in budgets:
         print("Category not found.")
         return
@@ -52,15 +55,11 @@ def expense_tracker():
     print("Expense added successfully.")
 
 def saving_goals_menu():
-    global saving_goals  # Add this line if saving_goals is a global variable
     print("\nSavings Goals")
-    goal = input("Enter savings goal (e.g, vacation): ")
-    if not goal:
-        print("Goal name cannot be empty.")
-        return
+    goal = input("Enter savings goal (e.g., vacation): ").strip()
     if goal in saving_goals:
-        print("Goal already exists. Do you want to update the goal? (Y/N): ")
-        choice = input().strip().upper()
+        print("A savings goal already exists with this name.")
+        choice = input("Do you want to update the goal? (Y/N): ").strip().upper()
         if choice != 'Y':
             return
     target_amount = input("Enter target amount: ")
@@ -70,7 +69,6 @@ def saving_goals_menu():
         print("Invalid input. Please enter a valid amount.")
         return
     saving_goals[goal] = target_amount
-
     print("Savings goal set successfully.")
 
 def generate_reports():
